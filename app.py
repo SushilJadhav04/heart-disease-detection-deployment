@@ -25,7 +25,7 @@ st.set_page_config(
 )
 
 # API configuration
-API_URL = "http://backend:8000"
+API_URL = os.getenv("API_URL", "http://localhost:8000")
 THRESHOLD = 0.37  # Default, will be updated from API
 
 # ============================================
