@@ -14,6 +14,7 @@ import base64
 import tempfile
 import os
 import plotly.express as px
+import os
 
 # Page configuration
 st.set_page_config(
