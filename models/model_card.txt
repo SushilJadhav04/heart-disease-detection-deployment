@@ -1,0 +1,37 @@
+========================================
+HEART DISEASE DETECTION - MODEL CARD
+========================================
+
+Model Type: RandomForestClassifier
+Training Date: [Current Date]
+Dataset Size: 400 patients
+
+OPTIMIZED THRESHOLD: 0.37
+------------------------------------------------
+Based on threshold optimization analysis:
+
+PERFORMANCE AT THRESHOLD 0.37:
+- Recall: 90.9% (catches 40/44 disease cases)
+- Precision: 62.5%
+- F1-Score: 0.7407
+- False Negatives: 4 (missed patients)
+- False Positives: 24 (false alarms)
+
+COMPARISON WITH DEFAULT (0.50):
+- Recall improved from 75.0% → 90.9% (+15.9%)
+- Missed patients reduced from 11 → 4 (-64%)
+- False positives increased from 15 → 24 (+60%)
+
+RECOMMENDED USE:
+This model is optimized for SCREENING purposes.
+High recall ensures most disease cases are caught.
+False positives are acceptable in screening context.
+
+TOP FEATURES:
+1. max_heart_rate
+2. age
+3. cholesterol
+4. resting_blood_pressure
+5. st_depression
+
+========================================

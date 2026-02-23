@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Disease Detector</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 900px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background: #f0f2f5;
+        }
+        h1 { 
+            color: #2c3e50; 
+            text-align: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        .form-group { 
+            margin-bottom: 15px; 
+        }
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: 600; 
+            color: #34495e;
+        }
+        input { 
+            width: 100%; 
+            padding: 8px; 
+            border: 2px solid #bdc3c7; 
+            border-radius: 6px; 
+            font-size: 14px;
+            transition: border 0.3s;
+        }
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        button { 
+            background: #3498db; 
+            color: white; 
+            padding: 12px 30px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        button:hover { 
+            background: #2980b9; 
+        }
+        .result { 
+            margin-top: 30px; 
+            padding: 20px; 
+            border-radius: 10px; 
+            display: none; 
+        }
+        .high-risk { 
+            background: #ffebee; 
+            border-left: 8px solid #f44336; 
+        }
+        .low-risk { 
+            background: #e8f5e9; 
+            border-left: 8px solid #4CAF50; 
+        }
+        .info-text {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>❤️ Heart Disease Risk Assessment</h1>
+    <div class="container">
+        <form id="predictionForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Age (years):</label>
+                    <input type="number" name="age" value="58" required>
+                </div>
+                <div class="form-group">
+                    <label>Sex:</label>
+                    <input type="number" name="sex" value="1" min="0" max="1" required>
+                    <div class="info-text">0 = Female, 1 = Male</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Chest Pain Type:</label>
+                    <input type="number" name="chest_pain_type" value="1" min="0" max="3" required>
+                    <div class="info-text">0-3 (higher = more severe)</div>
+                </div>
+                <div class="form-group">
+                    <label>Resting Blood Pressure:</label>
+                    <input type="number" name="resting_blood_pressure" value="134" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Cholesterol (mg/dl):</label>
+                    <input type="number" name="cholesterol" value="246" required>
+                </div>
+                <div class="form-group">
+                    <label>Fasting Blood Sugar:</label>
+                    <input type="number" name="fasting_blood_sugar" value="0" min="0" max="1" required>
+                    <div class="info-text">0 = <120 mg/dl, 1 = >120 mg/dl</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Resting ECG:</label>
+                    <input type="number" name="resting_ecg" value="0" min="0" max="2" required>
+                </div>
+                <div class="form-group">
+                    <label>Max Heart Rate:</label>
+                    <input type="number" name="max_heart_rate" value="155" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Exercise Induced Angina:</label>
+                    <input type="number" name="exercise_induced_angina" value="0" min="0" max="1" required>
+                    <div class="info-text">0 = No, 1 = Yes</div>
+                </div>
+                <div class="form-group">
+                    <label>ST Depression:</label>
+                    <input type="number" step="0.1" name="st_depression" value="0.4" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>ST Slope:</label>
+                    <input type="number" name="st_slope" value="1" min="0" max="2" required>
+                </div>
+                <div class="form-group">
+                    <label>Num Major Vessels:</label>
+                    <input type="number" name="num_major_vessels" value="1" min="0" max="3" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Thalassemia:</label>
+                    <input type="number" name="thalassemia" value="2" min="0" max="3" required>
+                </div>
+            </div>
+            
+            <button type="submit">Predict Heart Disease Risk</button>
+        </form>
+        
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Convert strings to numbers
+            for (let key in data) {
+                data[key] = key === 'st_depression' ? parseFloat(data[key]) : parseInt(data[key]);
+            }
+            
+            console.log('Sending data:', data);
+            
+            try {
+                const response = await fetch('http://localhost:8000/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const result = await response.json();
+                console.log('Received result:', result);
+                
+                const resultDiv = document.getElementById('result');
+                resultDiv.style.display = 'block';
+                
+                if (result.prediction === 1) {
+                    resultDiv.className = 'result high-risk';
+                    resultDiv.innerHTML = `
+                        <h3>⚠️ High Risk of Heart Disease</h3>
+                        <p><strong>Probability:</strong> ${(result.probability * 100).toFixed(1)}%</p>
+                        <p><strong>Risk Level:</strong> ${result.risk_level}</p>
+                        <p><strong>Message:</strong> ${result.message}</p>
+                        <p><strong>Recommendation:</strong> Please consult a doctor for further evaluation.</p>
+                    `;
+                } else {
+                    resultDiv.className = 'result low-risk';
+                    resultDiv.innerHTML = `
+                        <h3>✅ Low Risk of Heart Disease</h3>
+                        <p><strong>Probability:</strong> ${(result.probability * 100).toFixed(1)}%</p>
+                        <p><strong>Risk Level:</strong> ${result.risk_level}</p>
+                        <p><strong>Message:</strong> ${result.message}</p>
+                        <p><strong>Recommendation:</strong> Maintain a healthy lifestyle.</p>
+                    `;
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+                console.error('Error details:', error);
+            }
+        });
+    </script>
+</body>
+</html>
