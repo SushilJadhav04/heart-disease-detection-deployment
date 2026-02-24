@@ -10,6 +10,8 @@ import uvicorn
 import os
 from datetime import datetime
 
+from fastapi.middleware.cors import CORSMiddleware
+
 # Initialize FastAPI app
 app = FastAPI(
     title="Heart Disease Detection API",
@@ -17,6 +19,13 @@ app = FastAPI(
     version="2.0.0"
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # For demo; production can restrict
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # Setup templates
 templates = Jinja2Templates(directory="templates")
 
