@@ -1,6 +1,4 @@
-# Complete Updated README.md for Your Project
 
-```markdown
 # Heart Disease Detection using Machine Learning
 
 <div align="center">
@@ -792,43 +790,6 @@ docker-compose logs -f
 
 ---
 
-## 🔮 Future Scope
-
-### **Short-term Improvements**
-- [ ] Hyperparameter tuning with GridSearchCV
-- [ ] Add XGBoost and LightGBM models
-- [ ] Implement user authentication
-- [ ] Add patient history tracking
-- [ ] Export reports as PDF
-- [ ] Batch prediction for CSV uploads
-
-### **Long-term Goals**
-- [ ] Deploy on cloud (AWS/GCP/Azure)
-- [ ] Create mobile app (React Native/Flutter)
-- [ ] Integrate with hospital EHR systems
-- [ ] Add explainable AI (SHAP/LIME)
-- [ ] Multi-language support
-- [ ] Real-time monitoring dashboard
-- [ ] Automated model retraining pipeline
-- [ ] A/B testing framework
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-### **Development Guidelines**
-- Follow PEP 8 style guide
-- Add docstrings for new functions
-- Update tests accordingly
-- Update documentation
 
 ---
 
@@ -840,44 +801,9 @@ Contributions are welcome! Please follow these steps:
 - Cleveland Heart Disease Dataset
 - Original dataset contributors
 
-### **Libraries & Frameworks**
-- [Scikit-learn](https://scikit-learn.org/) - ML algorithms
-- [FastAPI](https://fastapi.tiangolo.com/) - Web framework
-- [Streamlit](https://streamlit.io/) - UI framework
-- [Plotly](https://plotly.com/) - Interactive visualizations
 
-### **Inspiration**
-- WHO Cardiovascular Disease Facts
-- American Heart Association Guidelines
-- Medical research papers on heart disease prediction
 
-### **Special Thanks**
-- Capstone Project Mentors
-- Open Source Community
-- Healthcare professionals for domain insights
+
+
 
 ---
-
-
-
-## 📝 **SUMMARY OF UPDATES**
-
-| Section | What's Added |
-|---------|--------------|
-| **Badges** | Status badges, tech stack badges |
-| **Key Features** | Detailed list of all 10+ features |
-| **Feature Table** | Clinical significance column |
-| **Tech Stack** | Complete version details |
-| **Installation** | Prerequisites, verification steps |
-| **Usage Guide** | Step-by-step with screenshots |
-| **API Endpoints** | Complete documentation |
-| **Model Performance** | Optimized metrics (0.37 threshold) |
-| **Screenshots** | ASCII art representations |
-| **Testing** | Multiple test methods |
-| **Docker** | Complete deployment guide |
-| **Future Scope** | Short and long-term goals |
-| **Contributing** | Guidelines for contributors |
-| **Contact** | Multiple contact methods |
-| **Acknowledgments** | Full credits |
-
-This README is now **comprehensive, professional, and ready for your Capstone submission!** 🎉
